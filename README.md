@@ -13,24 +13,24 @@ This project provides a template and some helper scripts to create your own Root
 ### Steps
 _This is for *NIX systems._
  
- ```
- # Clone the repository
- git clone https://github.com/BobWaffle/certificate-authority-bootstrap.git
- 
- # Change into the repo directory
- cd certificate-authority-bootstrap
- 
- # Clone the CA template using the helper script
- ./bin/bootstrap-ca.sh MyNewCA
- 
- # Change into the new CA directory
- cd ./private/MyNewCA
- 
- # Initialise the Root CA using the helper script
- ./bin/01CreateRootCAKeyAndCert.sh
- 
- # Initialise the Intermediate01 CA using the helper script
- ./bin/02CreateIntermediate01CAKeyAndCert.sh
+```
+# Clone the repository
+git clone https://github.com/BobWaffle/certificate-authority-bootstrap.git
+
+# Change into the repo directory
+cd certificate-authority-bootstrap
+
+# Clone the CA template using the helper script
+./bin/bootstrap-ca.sh MyNewCA
+
+# Change into the new CA directory
+cd ./private/MyNewCA
+
+# Initialise the Root CA using the helper script
+./bin/01CreateRootCAKeyAndCert.sh
+
+# Initialise the Intermediate01 CA using the helper script
+./bin/02CreateIntermediate01CAKeyAndCert.sh
  ```
 
 **DO NOT CUT-AND-PASTE THE ABOVE COMMANDS IN ONE BLOCK**  Why?  Because you're going to be prompted for passwords etc.
@@ -46,6 +46,18 @@ cd certificate-authority-bootstrap/private/MyNewCA
 
 # Run the certificate signing helper script
 ./bin/SignCertificateWithIntermediate01CA.sh www.somedomain.com api.somedomain.com blah.somedomain.com
+```
+
+The script `SignCertificateWithIntermediate01CA.sh` accepts any numbers of domains as parameters.  Note that the first
+domain becomes the Common Name of the certificate and all other names are Subject Alternative Names.
+ 
+You can use the script as many times as you want, passing a different Common Name each time. e.g.
+
+```
+./bin/SignCertificateWithIntermediate01CA.sh www.somedomain.com api.somedomain.com blah.somedomain.com
+./bin/SignCertificateWithIntermediate01CA.sh www.somethingelse.com
+./bin/SignCertificateWithIntermediate01CA.sh www.another.com alternative.another.com
+
 ```
 
 ## 3) \[Optional\] Trust Your Own CAs
