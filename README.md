@@ -7,11 +7,17 @@ This project provides a template and some helper scripts to create your own Root
 ## 1) Initialise the Root and Intermediate CAs
 _This is for *NIX systems._
 1. Clone the repo
-2. Change into the repo directory 
+
+2. Change into the repo directory
+ 
 3. Clone the CA template
+
 4. Change into the new CA directory
+
 5. Initialise the Root CA
+
 6. Initialise the Intermediate CA
+
 
 **DO NOT CUT-AND-PASTE THESE COMMANDS IN ONE BLOCK**  Why?  Because you're going to be prompted for passwords etc.
  
