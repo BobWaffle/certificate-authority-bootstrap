@@ -2,6 +2,10 @@
 
 This project provides a template and some helper scripts to create your own Root and Intermediate Certificate Authorities.
 
+[Quickstart](#quickstart)
+
+[FAQs](#faqs)
+
 # Quickstart
 
 ## 1) Initialise the Root and Intermediate CAs
@@ -44,7 +48,7 @@ cd certificate-authority-bootstrap/private/MyNewCA
 ./bin/SignCertificateWithIntermediateCA.sh my.domain.com
 ```
 
-## 3) [Optional] Trust Your Own CAs
+## 3) \[Optional\] Trust Your Own CAs
 
 This step allows you to add one or both of your Certificate Authorities to your device(s) on which you want to trust them.
 
@@ -68,5 +72,7 @@ This step allows you to add one or both of your Certificate Authorities to your 
 * [Install a private Certificate Authority on Mac](https://www.google.co.uk/?q=install%20root%20certificate%20on%20Mac)
 * [Install a private Certificate Authority on Windows](https://www.google.co.uk/?q=install%20root%20certificate%20on%20Windows)
 
-# FAQ
-##### Why 
+# FAQs
+
+##### Why is the FAQs section so empty?
+Because no-one has asked me any questions.
