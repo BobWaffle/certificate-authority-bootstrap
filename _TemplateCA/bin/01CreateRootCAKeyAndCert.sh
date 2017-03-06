@@ -10,7 +10,7 @@ then
         exit 1
 fi
 
-if [ -f private/root.ca.key.pem ]
+if [ -f private/@@@CERTIFICATE_AUTHORITY_NAME@@@.root.ca.crt.pem ]
 then
 	echo "ERROR: Looks like this Root CA is already initialised."
 	echo
@@ -27,8 +27,17 @@ echo "##"
 echo "## Make it very secure!  This is needed to use the Root Key for creating"
 echo "##      your Intermediate CAs."
 echo "##"
-openssl genrsa -aes256 -out private/root.ca.key.pem 4096
-chmod 400 private/root.ca.key.pem
+openssl genrsa -aes256 -out private/@@@CERTIFICATE_AUTHORITY_NAME@@@.root.ca.key.pem 4096
+
+if [ ! $? -eq 0 ]
+then
+    echo
+    echo "ERROR: OpenSSL command returned error.  Aborting."
+    echo
+    exit 1
+fi
+
+chmod 400 private/@@@CERTIFICATE_AUTHORITY_NAME@@@.root.ca.key.pem
 
 echo
 echo "#############################################################################"
@@ -39,17 +48,26 @@ echo "## You're about to be asked for the same password you entered above so tha
 echo "##     OpenSSL can use the Root Key to self-sign its own Certificate"
 echo "##"
 openssl req -config openssl.cnf \
-      -subj "/C=GB/ST=England/L=London/O=Anonymous Company Ltd./OU=Anonymous Company Certificates/CN=Anonymous Root Certificate" \
-      -key private/root.ca.key.pem \
+      -subj "/C=GB/ST=England/L=London/O=@@@CERTIFICATE_AUTHORITY_NAME@@@ Ltd./OU=@@@CERTIFICATE_AUTHORITY_NAME@@@ Certificates/CN=@@@CERTIFICATE_AUTHORITY_NAME@@@ Root Certificate" \
+      -key private/@@@CERTIFICATE_AUTHORITY_NAME@@@.root.ca.key.pem \
       -new -x509 -days 7300 -sha256 -extensions v3_ca \
-      -out certs/root.ca.crt.pem
-chmod 444 certs/root.ca.crt.pem
+      -out certs/@@@CERTIFICATE_AUTHORITY_NAME@@@.root.ca.crt.pem
+
+if [ ! $? -eq 0 ]
+then
+    echo
+    echo "ERROR: OpenSSL command returned error.  Aborting."
+    echo
+    exit 1
+fi
+
+chmod 444 certs/@@@CERTIFICATE_AUTHORITY_NAME@@@.root.ca.crt.pem
 
 echo
 echo "#############################################################################"
 echo "## All Done"
 echo "#############################################################################"
 echo "##"
-echo "## Now you probably want to go and run ./bin/02CreateIntermediateCAKeyAndCert.sh"
+echo "## Now you probably want to go and run ./bin/02CreateIntermediate01CAKeyAndCert.sh"
 echo "##"
 echo

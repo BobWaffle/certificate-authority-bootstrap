@@ -13,8 +13,8 @@ serial            = $dir/serial
 RANDFILE          = $dir/private/.rand
 
 # The root key and root certificate.
-private_key       = $dir/private/root.ca.key.pem
-certificate       = $dir/certs/root.ca.crt.pem
+private_key       = $dir/private/@@@CERTIFICATE_AUTHORITY_NAME@@@.root.ca.key.pem
+certificate       = $dir/certs/@@@CERTIFICATE_AUTHORITY_NAME@@@.root.ca.crt.pem
 
 # For certificate revocation lists.
 crlnumber         = $dir/crlnumber
@@ -76,9 +76,9 @@ commonName                      = Common Name
 countryName_default             = GB
 stateOrProvinceName_default     = England
 localityName_default            = London
-0.organizationName_default      = Anonymous Company Ltd.
-organizationalUnitName_default  = Anonymous Company Certificates
-commonName_default              = Anonymous Root Certificate
+0.organizationName_default      = @@@CERTIFICATE_AUTHORITY_NAME@@@ Ltd.
+organizationalUnitName_default  = @@@CERTIFICATE_AUTHORITY_NAME@@@ Certificates
+commonName_default              = @@@CERTIFICATE_AUTHORITY_NAME@@@ Root Certificate
 
 [ v3_ca ]
 # Extensions for a typical CA (`man x509v3_config`).

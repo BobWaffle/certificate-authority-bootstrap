@@ -33,11 +33,18 @@ fi
 
 cp -Rp _TemplateCA "$NEW_CA_PATH"
 
+# Insert the CA Name into the scripts and openssl.cnf files
+sed -i '' -e "s/@@@CERTIFICATE_AUTHORITY_NAME@@@/$1/g" "$NEW_CA_PATH/openssl.cnf"
+sed -i '' -e "s/@@@CERTIFICATE_AUTHORITY_NAME@@@/$1/g" "$NEW_CA_PATH/intermediate01/openssl.cnf"
+sed -i '' -e "s/@@@CERTIFICATE_AUTHORITY_NAME@@@/$1/g" "$NEW_CA_PATH/bin/01CreateRootCAKeyAndCert.sh"
+sed -i '' -e "s/@@@CERTIFICATE_AUTHORITY_NAME@@@/$1/g" "$NEW_CA_PATH/bin/02CreateIntermediate01CAKeyAndCert.sh"
+sed -i '' -e "s/@@@CERTIFICATE_AUTHORITY_NAME@@@/$1/g" "$NEW_CA_PATH/bin/SignCertificateWithIntermediate01CA.sh"
+
 echo
 echo "Created your new Certificate Authority in $NEW_CA_PATH"
 echo
 echo "You now probably want initialise that new CA like this:"
 echo "    cd $NEW_CA_PATH"
 echo "    ./bin/01CreateRootCAKeyAndCert.sh"
-echo "    ./bin/02CreateIntermediateCAKeyAndCert.sh"
+echo "    ./bin/02CreateIntermediate01CAKeyAndCert.sh"
 echo

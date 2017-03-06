@@ -10,7 +10,7 @@ then
         exit 1
 fi
 
-if [ ! -f private/root.ca.key.pem ]
+if [ ! -f private/@@@CERTIFICATE_AUTHORITY_NAME@@@.root.ca.key.pem ]
 then
         echo
         echo "ERROR: Looks like the Root CA is not initialised."
@@ -19,7 +19,7 @@ then
         exit 1
 fi
 
-if [ -f intermediate/private/intermediate.ca.key.pem ]
+if [ -f intermediate01/certs/@@@CERTIFICATE_AUTHORITY_NAME@@@.intermediate01.ca.crt.pem ]
 then
         echo "ERROR: Looks like this Intermediate CA is already initialised."
         echo
@@ -40,8 +40,17 @@ echo "## It *should* be different from the password you used for the Root CA..."
 echo "##      but it doesn't *have* to be different if you're just testing."
 echo "##"
 openssl genrsa -aes256 \
-      -out intermediate/private/intermediate.ca.key.pem 4096
-chmod 400 intermediate/private/intermediate.key.pem
+      -out intermediate01/private/@@@CERTIFICATE_AUTHORITY_NAME@@@.intermediate01.ca.key.pem 4096
+
+if [ ! $? -eq 0 ]
+then
+    echo
+    echo "ERROR: OpenSSL command returned error.  Aborting."
+    echo
+    exit 1
+fi
+
+chmod 400 intermediate01/private/@@@CERTIFICATE_AUTHORITY_NAME@@@.intermediate01.key.pem
 
 echo
 echo "#############################################################################"
@@ -52,10 +61,18 @@ echo "## You're about to be asked for the same password you entered above so tha
 echo "##     OpenSSL can use the Intermediate Key to self-sign its own CSR"
 echo "##"
 echo
-openssl req -config intermediate/openssl.cnf -new -sha256 \
-      -subj "/C=GB/ST=England/L=London/O=Anonymous Company Ltd./OU=Anonymous Company Certificates/CN=Anonymous Intermediate Certificate" \
-      -key intermediate/private/intermediate.ca.key.pem \
-      -out intermediate/csr/intermediate.ca.csr.pem
+openssl req -config intermediate01/openssl.cnf -new -sha256 \
+      -subj "/C=GB/ST=England/L=London/O=@@@CERTIFICATE_AUTHORITY_NAME@@@ Ltd./OU=@@@CERTIFICATE_AUTHORITY_NAME@@@ Certificates/CN=@@@CERTIFICATE_AUTHORITY_NAME@@@ Intermediate01 Certificate" \
+      -key intermediate01/private/@@@CERTIFICATE_AUTHORITY_NAME@@@.intermediate01.ca.key.pem \
+      -out intermediate01/csr/@@@CERTIFICATE_AUTHORITY_NAME@@@.intermediate01.ca.csr.pem
+
+if [ ! $? -eq 0 ]
+then
+    echo
+    echo "ERROR: OpenSSL command returned error.  Aborting."
+    echo
+    exit 1
+fi
 
 echo
 echo "#############################################################################"
@@ -68,24 +85,32 @@ echo "##"
 echo
 openssl ca -config openssl.cnf -extensions v3_intermediate_ca \
       -days 3650 -notext -md sha256 \
-      -in intermediate/csr/intermediate.ca.csr.pem \
-      -out intermediate/certs/intermediate.ca.crt.pem
-chmod 444 intermediate/certs/intermediate.ca.crt.pem
+      -in intermediate01/csr/@@@CERTIFICATE_AUTHORITY_NAME@@@.intermediate01.ca.csr.pem \
+      -out intermediate01/certs/@@@CERTIFICATE_AUTHORITY_NAME@@@.intermediate01.ca.crt.pem
+
+if [ ! $? -eq 0 ]
+then
+    echo
+    echo "ERROR: OpenSSL command returned error.  Aborting."
+    echo
+    exit 1
+fi
+chmod 444 intermediate01/certs/@@@CERTIFICATE_AUTHORITY_NAME@@@.intermediate01.ca.crt.pem
 
 echo "#############################################################################"
 echo "## Creating the Full and Partial Chain Files"
 echo "#############################################################################"
 
 echo
-echo "Creating full chain intermediate/certs/full-ca-chain.crt.pem"
-cat intermediate/certs/intermediate.ca.crt.pem \
-      certs/root.ca.crt.pem > intermediate/certs/full-ca-chain.crt.pem
-chmod 444 intermediate/certs/full-ca-chain.crt.pem
+echo "Creating full chain intermediate01/certs/@@@CERTIFICATE_AUTHORITY_NAME@@@.intermediate01.full-ca-chain.crt.pem"
+cat intermediate01/certs/@@@CERTIFICATE_AUTHORITY_NAME@@@.intermediate01.ca.crt.pem \
+      certs/root.ca.crt.pem > intermediate01/certs/@@@CERTIFICATE_AUTHORITY_NAME@@@.intermediate01.full-ca-chain.crt.pem
+chmod 444 intermediate01/certs/@@@CERTIFICATE_AUTHORITY_NAME@@@.intermediate01.full-ca-chain.crt.pem
 
 echo
-echo "Creating partial chain intermediate/certs/partial-ca-chain.crt.pem"
-cat intermediate/certs/intermediate.ca.crt.pem > intermediate/certs/partial-ca-chain.crt.pem
-chmod 444 intermediate/certs/partial-ca-chain.crt.pem
+echo "Creating partial chain intermediate01/certs/@@@CERTIFICATE_AUTHORITY_NAME@@@.intermediate01.partial-ca-chain.crt.pem"
+cat intermediate01/certs/@@@CERTIFICATE_AUTHORITY_NAME@@@.intermediate01.ca.crt.pem > intermediate01/certs/@@@CERTIFICATE_AUTHORITY_NAME@@@.intermediate01.partial-ca-chain.crt.pem
+chmod 444 intermediate01/certs/@@@CERTIFICATE_AUTHORITY_NAME@@@.intermediate01.partial-ca-chain.crt.pem
 
 echo
 echo "#############################################################################"
@@ -93,5 +118,5 @@ echo "## All Done"
 echo "#############################################################################"
 echo "##"
 echo "## Now you can use your Intermediate CA to sign certificates:"
-echo "##      e.g. ./bin/SignCertificateWithIntermediateCA.sh mydomain.com"
+echo "##      ./bin/SignCertificateWithIntermediate01CA.sh"
 echo
