@@ -5,37 +5,42 @@ This project provides a template and some helper scripts to create your own Root
 # Quickstart
 
 ## 1) Initialise the Root and Intermediate CAs
+
+### Steps
 _This is for *NIX systems._
-1. Clone the repo
-
-2. Change into the repo directory
- 
-3. Clone the CA template
-
-4. Change into the new CA directory
-
-5. Initialise the Root CA
-
-6. Initialise the Intermediate CA
-
-
-**DO NOT CUT-AND-PASTE THESE COMMANDS IN ONE BLOCK**  Why?  Because you're going to be prompted for passwords etc.
  
  ```
+ # Clone the repository
  git clone https://github.com/BobWaffle/certificate-authority-bootstrap.git
+ 
+ # Change into the repo directory
  cd certificate-authority-bootstrap
+ 
+ # Clone the CA template using the helper script
  ./bin/bootstrap-ca.sh MyNewCA
+ 
+ # Change into the new CA directory
  cd ./private/MyNewCA
+ 
+ # Initialise the Root CA using the helper script
  ./bin/01CreateRootCAKeyAndCert.sh
+ 
+ # Initialise the Intermediate CA using the helper script
  ./bin/02CreateIntermediateCAKeyAndCert.sh
  ```
+
+**DO NOT CUT-AND-PASTE THE ABOVE COMMANDS IN ONE BLOCK**  Why?  Because you're going to be prompted for passwords etc.
+
 
 ## 2) Get Signing
 
 Now you're ready to start signing your own certificates using your intermediate authority.
 
 ```
-[Still within your new Certificate Authority directory]
+# Make sure you're in the new Certificate Authority directory
+cd certificate-authority-bootstrap/private/MyNewCA
+
+# Run the certificate signing helper script
 ./bin/SignCertificateWithIntermediateCA.sh my.domain.com
 ```
 
@@ -62,3 +67,6 @@ This step allows you to add one or both of your Certificate Authorities to your 
 * [Install a private Certificate Authority on iPhone](https://www.google.co.uk/?q=install%20root%20certificate%20on%20iPhone)
 * [Install a private Certificate Authority on Mac](https://www.google.co.uk/?q=install%20root%20certificate%20on%20Mac)
 * [Install a private Certificate Authority on Windows](https://www.google.co.uk/?q=install%20root%20certificate%20on%20Windows)
+
+# FAQ
+##### Why 
