@@ -47,14 +47,14 @@ echo "##########################################################################
 echo "## Creating a certificate including the full chain"
 echo "#############################################################################"
 cat ./intermediate/certs/$1.crt.pem >> intermediate/certs/$1.fully-chained.crt.pem
-cat  ./intermediate/certs/full-ca-chain.cert.pem >> intermediate/certs/$1.fully-chained.crt.pem
+cat  ./intermediate/certs/full-ca-chain.crt.pem >> intermediate/certs/$1.fully-chained.crt.pem
 
 echo
 echo "#############################################################################"
 echo "## Creating a certificate including the partial (intermediate-only) chain"
 echo "#############################################################################"
 cat ./intermediate/certs/$1.crt.pem >> intermediate/certs/$1.partially-chained.crt.pem
-cat  ./intermediate/certs/partial-ca-chain.cert.pem >> intermediate/certs/$1.partially-chained.crt.pem
+cat  ./intermediate/certs/partial-ca-chain.crt.pem >> intermediate/certs/$1.partially-chained.crt.pem
 echo
 echo "#############################################################################"
 echo
@@ -62,22 +62,22 @@ echo "You will probably want some or all of these files:"
 echo "     intermediate/private/$1.key.pem"
 echo "     intermediate/certs/$1.crt.pem"
 echo "     intermediate/certs/$1.fully-chained.crt.pem"
-echo "     intermediate/certs/full-ca-chain.cert.pem"
+echo "     intermediate/certs/full-ca-chain.crt.pem"
 echo "     intermediate/certs/$1.partially-chained.crt.pem"
-echo "     intermediate/certs/partial-ca-chain.cert.pem"
+echo "     intermediate/certs/partial-ca-chain.crt.pem"
 echo
 echo "In Apache (and assuming your clients already trust the Root CA - hence not requiring"
 echo "     the fully-signed chain) your config might look like this:"
 echo
 echo "      SSLEngine On"
-echo "      SSLCertificateChainFile /path/to/partial-ca-chain.cert.pem"
+echo "      SSLCertificateChainFile /path/to/partial-ca-chain.crt.pem"
 echo "      SSLCertificateFile /path/to/$1.crt.pem"
 echo "      SSLCertificateKeyFile /path/to/$1.key.pem"
 echo
 echo "In Apache, if you needed the full ssl chain, your config might look like this:"
 echo
 echo "      SSLEngine On"
-echo "      SSLCertificateChainFile /path/to/full-ca-chain.cert.pem"
+echo "      SSLCertificateChainFile /path/to/full-ca-chain.crt.pem"
 echo "      SSLCertificateFile /path/to/$1.crt.pem"
 echo "      SSLCertificateKeyFile /path/to/$1.key.pem"
 echo

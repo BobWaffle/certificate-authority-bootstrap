@@ -69,23 +69,23 @@ echo
 openssl ca -config openssl.cnf -extensions v3_intermediate_ca \
       -days 3650 -notext -md sha256 \
       -in intermediate/csr/intermediate.ca.csr.pem \
-      -out intermediate/certs/intermediate.ca.cert.pem
-chmod 444 intermediate/certs/intermediate.ca.cert.pem
+      -out intermediate/certs/intermediate.ca.crt.pem
+chmod 444 intermediate/certs/intermediate.ca.crt.pem
 
 echo "#############################################################################"
 echo "## Creating the Full and Partial Chain Files"
 echo "#############################################################################"
 
 echo
-echo "Creating full chain intermediate/certs/full-ca-chain.cert.pem"
-cat intermediate/certs/intermediate.ca.cert.pem \
-      certs/root.ca.cert.pem > intermediate/certs/full-ca-chain.cert.pem
-chmod 444 intermediate/certs/full-ca-chain.cert.pem
+echo "Creating full chain intermediate/certs/full-ca-chain.crt.pem"
+cat intermediate/certs/intermediate.ca.crt.pem \
+      certs/root.ca.crt.pem > intermediate/certs/full-ca-chain.crt.pem
+chmod 444 intermediate/certs/full-ca-chain.crt.pem
 
 echo
-echo "Creating partial chain intermediate/certs/partial-ca-chain.cert.pem"
-cat intermediate/certs/intermediate.ca.cert.pem > intermediate/certs/partial-ca-chain.cert.pem
-chmod 444 intermediate/certs/partial-ca-chain.cert.pem
+echo "Creating partial chain intermediate/certs/partial-ca-chain.crt.pem"
+cat intermediate/certs/intermediate.ca.crt.pem > intermediate/certs/partial-ca-chain.crt.pem
+chmod 444 intermediate/certs/partial-ca-chain.crt.pem
 
 echo
 echo "#############################################################################"

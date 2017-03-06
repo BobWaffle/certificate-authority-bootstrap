@@ -42,8 +42,8 @@ openssl req -config openssl.cnf \
       -subj "/C=GB/ST=England/L=London/O=Anonymous Company Ltd./OU=Anonymous Company Certificates/CN=Anonymous Root Certificate" \
       -key private/root.ca.key.pem \
       -new -x509 -days 7300 -sha256 -extensions v3_ca \
-      -out certs/root.ca.cert.pem
-chmod 444 certs/root.ca.cert.pem
+      -out certs/root.ca.crt.pem
+chmod 444 certs/root.ca.crt.pem
 
 echo
 echo "#############################################################################"

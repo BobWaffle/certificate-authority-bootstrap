@@ -14,7 +14,7 @@ RANDFILE          = $dir/private/.rand
 
 # The root key and root certificate.
 private_key       = $dir/private/root.ca.key.pem
-certificate       = $dir/certs/root.ca.cert.pem
+certificate       = $dir/certs/root.ca.crt.pem
 
 # For certificate revocation lists.
 crlnumber         = $dir/crlnumber
