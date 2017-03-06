@@ -39,6 +39,7 @@ echo "## You're about to be asked for the same password you entered above so tha
 echo "##     OpenSSL can use the Root Key to self-sign its own Certificate"
 echo "##"
 openssl req -config openssl.cnf \
+      -subj "/C=GB/ST=England/L=London/O=Anonymous Company Ltd./OU=Anonymous Company Certificates/CN=Anonymous Root Certificate" \
       -key private/root.ca.key.pem \
       -new -x509 -days 7300 -sha256 -extensions v3_ca \
       -out certs/root.ca.cert.pem

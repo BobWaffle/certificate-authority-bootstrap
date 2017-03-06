@@ -53,6 +53,7 @@ echo "##     OpenSSL can use the Intermediate Key to self-sign its own CSR"
 echo "##"
 echo
 openssl req -config intermediate/openssl.cnf -new -sha256 \
+      -subj "/C=GB/ST=England/L=London/O=Anonymous Company Ltd./OU=Anonymous Company Certificates/CN=Anonymous Intermediate Certificate" \
       -key intermediate/private/intermediate.ca.key.pem \
       -out intermediate/csr/intermediate.ca.csr.pem
 

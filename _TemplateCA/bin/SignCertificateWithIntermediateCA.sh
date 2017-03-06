@@ -31,12 +31,16 @@ fi
 echo "#############################################################################"
 echo "## Creating the CSR for $1"
 echo "#############################################################################"
-openssl req -config ./intermediate/openssl.cnf -newkey rsa:4096 -sha256 -nodes -subj "/C=GB/ST=England/L=London/O=Anonymous Company Ltd./OU=Anonymous Company Certificates/CN=$1" -out intermediate/csr/$1.request.pem -keyout intermediate/private/$1.key.pem
+openssl req -config ./intermediate/openssl.cnf \
+        -newkey rsa:4096 -sha256 -nodes \
+        -subj "/C=GB/ST=England/L=London/O=Anonymous Company Ltd./OU=Anonymous Company Certificates/CN=$1" \
+        -out intermediate/csr/$1.request.pem -keyout intermediate/private/$1.key.pem
 echo
 echo "#############################################################################"
 echo "Signing the certificate with the Intemediate Authority"
 echo "#############################################################################"
-openssl ca -config ./intermediate/openssl.cnf -out intermediate/certs/$1.crt.pem -infiles intermediate/csr/$1.request.pem
+openssl ca -config ./intermediate/openssl.cnf \
+        -out intermediate/certs/$1.crt.pem -infiles intermediate/csr/$1.request.pem
 
 echo
 echo "#############################################################################"
@@ -57,22 +61,29 @@ echo
 echo "You will probably want some or all of these files:"
 echo "     intermediate/private/$1.key.pem\t\t<- You definitely want this"
 echo "     intermediate/certs/$1.crt.pem"
-echo "     intermediate/certs/$1.fully.chained.crt.pem"
+echo "     intermediate/certs/$1.fully-chained.crt.pem"
 echo "     intermediate/certs/full-ca-chain.cert.pem"
-echo "     intermediate/certs/$1.partially.chained.crt.pem"
+echo "     intermediate/certs/$1.partially-chained.crt.pem"
 echo "     intermediate/certs/partial-ca-chain.cert.pem"
-echo
 echo
 echo "In Apache (and assuming your clients already trust the Root CA - hence not requiring"
 echo "     the fully-signed chain) your config might look like this:"
 echo
 echo "      SSLEngine On"
-echo "      SSLCertificateFile {SSL_PATH}$1.partially.chained.crt.pem"
-echo "      SSLCertificateKeyFile {SSL_PATH}$1.key.pem"
+echo "      SSLCertificateChainFile /path/to/partial-ca-chain.cert.pem"
+echo "      SSLCertificateFile /path/to/$1.crt.pem"
+echo "      SSLCertificateKeyFile /path/to/$1.key.pem"
 echo
-echo "Or, equivalently:"
+echo "In Apache, if you needed the full ssl chain, your config might look like this:"
 echo
 echo "      SSLEngine On"
-echo "      SSLCertificateChainFile partial-ca-chain.cert.pem"
-echo "      SSLCertificateFile {SSL_PATH}$1.crt.pem"
-echo "      SSLCertificateKeyFile {SSL_PATH}$1.key.pem"
+echo "      SSLCertificateChainFile /path/to/full-ca-chain.cert.pem"
+echo "      SSLCertificateFile /path/to/$1.crt.pem"
+echo "      SSLCertificateKeyFile /path/to/$1.key.pem"
+echo
+echo "In nginx, if you needed the full ssl chain, your config might look like this:"
+echo
+echo "      ssl on;"
+echo "      ssl_certificate_key /path/to/$1.key.pem;"
+echo "      ssl_certificate /path/to/$1.crt.pem;"
+echo
