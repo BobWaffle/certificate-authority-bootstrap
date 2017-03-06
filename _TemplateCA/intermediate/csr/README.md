@@ -1,0 +1,1 @@
+This directory is where your intermediate Certificate Signing Requests certificate will be stored.

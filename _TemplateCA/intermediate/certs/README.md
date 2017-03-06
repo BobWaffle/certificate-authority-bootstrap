@@ -1,0 +1,1 @@
+This directory is where your intermediate CA certificate will be stored.

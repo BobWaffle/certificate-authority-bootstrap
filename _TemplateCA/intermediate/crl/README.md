@@ -1,0 +1,1 @@
+This directory is where your intermediate Certificate Revocation List will be stored.

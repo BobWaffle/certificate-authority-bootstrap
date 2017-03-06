@@ -1,0 +1,1 @@
+This directory is where your root Certificate Revocation List will be stored.
