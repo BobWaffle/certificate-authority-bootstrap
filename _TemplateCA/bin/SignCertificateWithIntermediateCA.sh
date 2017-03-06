@@ -85,5 +85,5 @@ echo "In nginx, if you needed the full ssl chain, your config might look like th
 echo
 echo "      ssl on;"
 echo "      ssl_certificate_key /path/to/$1.key.pem;"
-echo "      ssl_certificate /path/to/$1.crt.pem;"
+echo "      ssl_certificate /path/to/$1.fully-chained.crt.pem;"
 echo
