@@ -59,7 +59,7 @@ echo
 echo "#############################################################################"
 echo
 echo "You will probably want some or all of these files:"
-echo "     intermediate/private/$1.key.pem\t\t<- You definitely want this"
+echo "     intermediate/private/$1.key.pem"
 echo "     intermediate/certs/$1.crt.pem"
 echo "     intermediate/certs/$1.fully-chained.crt.pem"
 echo "     intermediate/certs/full-ca-chain.cert.pem"
