@@ -29,8 +29,8 @@ _This is for *NIX systems._
  # Initialise the Root CA using the helper script
  ./bin/01CreateRootCAKeyAndCert.sh
  
- # Initialise the Intermediate CA using the helper script
- ./bin/02CreateIntermediateCAKeyAndCert.sh
+ # Initialise the Intermediate01 CA using the helper script
+ ./bin/02CreateIntermediate01CAKeyAndCert.sh
  ```
 
 **DO NOT CUT-AND-PASTE THE ABOVE COMMANDS IN ONE BLOCK**  Why?  Because you're going to be prompted for passwords etc.
@@ -45,7 +45,7 @@ Now you're ready to start signing your own certificates using your intermediate 
 cd certificate-authority-bootstrap/private/MyNewCA
 
 # Run the certificate signing helper script
-./bin/SignCertificateWithIntermediateCA.sh my.domain.com
+./bin/SignCertificateWithIntermediate01CA.sh www.somedomain.com api.somedomain.com blah.somedomain.com
 ```
 
 ## 3) \[Optional\] Trust Your Own CAs
