@@ -104,7 +104,7 @@ echo "##########################################################################
 echo
 echo "Creating full chain intermediate01/certs/@@@CERTIFICATE_AUTHORITY_NAME@@@.intermediate01.full-ca-chain.crt.pem"
 cat intermediate01/certs/@@@CERTIFICATE_AUTHORITY_NAME@@@.intermediate01.ca.crt.pem \
-      certs/root.ca.crt.pem > intermediate01/certs/@@@CERTIFICATE_AUTHORITY_NAME@@@.intermediate01.full-ca-chain.crt.pem
+      certs/@@@CERTIFICATE_AUTHORITY_NAME@@@.root.ca.crt.pem > intermediate01/certs/@@@CERTIFICATE_AUTHORITY_NAME@@@.intermediate01.full-ca-chain.crt.pem
 chmod 444 intermediate01/certs/@@@CERTIFICATE_AUTHORITY_NAME@@@.intermediate01.full-ca-chain.crt.pem
 
 echo

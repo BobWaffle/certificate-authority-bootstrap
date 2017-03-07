@@ -11,6 +11,7 @@ new_certs_dir     = $dir/newcerts
 database          = $dir/index.txt
 serial            = $dir/serial
 RANDFILE          = $dir/private/.rand
+copy_extensions   = copy
 
 # The root key and root certificate.
 private_key       = $dir/private/@@@CERTIFICATE_AUTHORITY_NAME@@@.intermediate01.ca.key.pem

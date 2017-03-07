@@ -39,7 +39,7 @@ echo "##########################################################################
 openssl req \
         -reqexts SAN \
         -config <(cat ./intermediate01/openssl.cnf \
-                <(printf "[SAN]\nsubjectAltName=$ALTERNATES")) \
+                <(printf "[SAN]\nsubjectAltName=$ALTERNATES\nbasicConstraints=CA:FALSE\nkeyUsage=nonRepudiation,digitalSignature,keyEncipherment")) \
         -newkey rsa:4096 -sha256 -nodes \
         -subj "/C=GB/ST=England/L=London/O=@@@CERTIFICATE_AUTHORITY_NAME@@@ Ltd./OU=@@@CERTIFICATE_AUTHORITY_NAME@@@ Certificates/CN=$1" \
         -out intermediate01/csr/$1.request.pem -keyout intermediate01/private/$1.key.pem
