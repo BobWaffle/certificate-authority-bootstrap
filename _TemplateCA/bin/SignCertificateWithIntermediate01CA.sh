@@ -57,6 +57,7 @@ echo "##########################################################################
 echo "Signing the certificate with the Intemediate Authority"
 echo "#############################################################################"
 openssl ca -config ./intermediate01/openssl.cnf \
+	-extensions v3_ca \
         -out intermediate01/certs/$1.crt.pem -infiles intermediate01/csr/$1.request.pem
 
 
